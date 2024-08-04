@@ -1,0 +1,57 @@
+{
+	"name": "viewport-window",
+	"tree": {
+		"$className": "DataModel",
+		"Workspace": {
+			"$className": "Workspace",
+			"$properties": {
+				"SignalBehavior": "Deferred"
+			},
+			"World": {
+				"$path": "demo/assets/world.rbxm"
+			}
+		},
+		"Lighting": {
+			"$className": "Lighting",
+			"$properties": {
+				"Technology": "Future"
+			},
+			"Sky": {
+				"$path": "demo/assets/sky.rbxm"
+			}
+		},
+		"MaterialService": {
+			"$className": "MaterialService",
+			"Materials": {
+				"$path": "demo/assets/materials.rbxm"
+			}
+		},
+		"ReplicatedStorage": {
+			"$className": "ReplicatedStorage",
+			"Packages": {
+				"$path": "Packages",
+				"ViewportWindow": {
+					"$path": "default.project.json"
+				}
+			},
+			"Demo": {
+				"$path": "demo/src"
+			}
+		},
+		"ServerScriptService": {
+			"$className": "ServerScriptService",
+			"ServerEntry": {
+				"$path": "demo/entry.server.luau"
+			}
+		},
+		"StarterPlayer": {
+			"$className": "StarterPlayer",
+			"StarterPlayerScripts": {
+				"$className": "StarterPlayerScripts",
+				"ClientEntry": {
+					"$path": "demo/entry.client.luau"
+				}
+			}
+		}
+	}
+}

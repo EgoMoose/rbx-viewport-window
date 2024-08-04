@@ -1,0 +1,11 @@
+[package]
+name = "egomoose/viewport-window"
+description = "https://github.com/EgoMoose/rbx-viewport-window"
+version = "0.1.0"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+license = "MIT"
+private = true
+
+[dependencies]
+Trove = "sleitnick/trove@1.5.0"

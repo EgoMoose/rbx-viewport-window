@@ -1,0 +1,17 @@
+{
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "cframe",
+        "Orthonormalize",
+        "pcall",
+        "placefiles",
+        "rbxassetid",
+        "rojo",
+        "setmetatable"
+    ],
+    "ignoreWords": [],
+    "import": []
+}

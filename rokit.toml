@@ -1,0 +1,13 @@
+# This file lists tools managed by Rokit, a toolchain manager for Roblox projects.
+# For more information, see https://github.com/rojo-rbx/rokit
+
+# New tools can be added by running `rokit add <tool>` in a terminal.
+
+[tools]
+rojo = "rojo-rbx/rojo@7.4.4"
+lune = "lune-org/lune@0.8.9"
+wally = "UpliftGames/wally@0.3.2"
+selene = "Kampfkarren/selene@0.27.1"
+stylua = "JohnnyMorganz/stylua@2.0.2"
+luau-lsp = "JohnnyMorganz/luau-lsp@1.38.1"
+wally-package-types = "JohnnyMorganz/wally-package-types@1.4.2"
