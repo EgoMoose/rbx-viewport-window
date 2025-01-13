@@ -198,7 +198,8 @@ function ViewportWindowClass.RenderManual(
 
 	local w, h = 1, 1
 	if self.surfaceGui.SizingMode == Enum.SurfaceGuiSizingMode.FixedSize then
-		h = surfaceSize.X / surfaceSize.Y
+		local canvasSize = self.surfaceGui.CanvasSize
+		h = (canvasSize.Y / canvasSize.X) * (surfaceSize.X / surfaceSize.Y)
 	end
 
 	local dx = math.sign(dv.X * dv.Z) * tanArcCos
