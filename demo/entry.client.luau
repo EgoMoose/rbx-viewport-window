@@ -11,6 +11,9 @@ local sky = game.Lighting:FindFirstChildWhichIsA("Sky")
 local function setupPortal()
 	local windowA = ViewportWindow.fromPart(workspace.World.PortalA, Enum.NormalId.Front)
 	local windowB = ViewportWindow.fromPart(workspace.World.PortalB, Enum.NormalId.Front)
+
+	windowA:GetSurfaceGui().ResetOnSpawn = false
+	windowB:GetSurfaceGui().ResetOnSpawn = false
 	windowA:SetSky(sky)
 	windowB:SetSky(sky)
 
@@ -24,6 +27,8 @@ end
 
 local function setupMirror()
 	local window = ViewportWindow.fromPart(workspace.World.Mirror, Enum.NormalId.Front)
+
+	window:GetSurfaceGui().ResetOnSpawn = false
 	window:SetSky(sky)
 
 	local Mirror = require(Demo.Mirror)
@@ -37,6 +42,8 @@ end
 local function setupSeeThrough()
 	local surface = workspace.World.SeeThrough
 	local window = ViewportWindow.fromPart(surface, Enum.NormalId.Front)
+
+	window:GetSurfaceGui().ResetOnSpawn = false
 	--window:SetSky(sky)
 
 	for _, child in surface:GetChildren() do
