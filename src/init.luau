@@ -33,6 +33,9 @@ export type ViewportWindow = typeof(setmetatable(
 function ViewportWindowClass.fromPart(part: BasePart, face: Enum.NormalId)
 	local self = setmetatable({}, ViewportWindowClass) :: ViewportWindow
 
+	local player = assert(Players.LocalPlayer, "No local player found.")
+	local playerGui = assert(player.PlayerGui, "Player has no PlayerGui.")
+
 	self.trove = Trove.new()
 
 	self.surfaceGui = Instance.new("SurfaceGui")
@@ -43,7 +46,7 @@ function ViewportWindowClass.fromPart(part: BasePart, face: Enum.NormalId)
 	self.surfaceGui.SizingMode = Enum.SurfaceGuiSizingMode.FixedSize
 	self.surfaceGui.CanvasSize = Vector2.new(1024, 1024)
 	self.surfaceGui.ZOffset = 2 -- Fixes an issue viewing the surface gui closely on semi-transparent parts
-	self.surfaceGui.Parent = Players.LocalPlayer.PlayerGui
+	self.surfaceGui.Parent = playerGui
 	self.trove:Add(self.surfaceGui)
 
 	self.nearPlaneZ = 0
