@@ -1,0 +1,36 @@
+name: Build Demo
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  pull:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Demo
+            runner-os: ubuntu-latest
+
+    name: Build - ${{ matrix.name }}
+    runs-on: ${{ matrix.runner-os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: "Setup rokit"
+        uses: CompeyDev/setup-rokit@v0.1.2
+
+      - name: "Run wally install"
+        run: |
+          lune run wally-install
+
+      - name: "Build rbxl"
+        run: |
+          rojo build demo.project.json --output demo.rbxl
+      
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}
+          path: demo.rbxl
