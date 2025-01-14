@@ -1,6 +1,6 @@
 # rbx-viewport-window
 
-ViewportWindow provide developers with the tools to use viewport frames much like you'd use a window in real life. You can look into them and see a different space that is contained in a viewport frame. This can be used to do some neat stuff like non euclidean geometry.
+ViewportWindow provides developers with the tools to use viewport frames much like you'd use a window in real life. You can look into them and see a different space that is contained in a viewport frame. This can be used to do some neat stuff like non euclidean geometry.
 
 https://github.com/user-attachments/assets/82b6cc32-1532-4cbb-bde0-988699a1e150
 

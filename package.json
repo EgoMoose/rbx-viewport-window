@@ -1,7 +1,7 @@
 {
   "name": "rbx-viewport-window",
   "version": "0.1.0",
-  "description": "ViewportWindow provide developers with the tools to use viewport frames much like you'd use a window in real life. You can look into them and see a different space that is contained in a viewport frame. This can be used to do some neat stuff like non euclidean geometry.",
+  "description": "ViewportWindow provides developers with the tools to use viewport frames much like you'd use a window in real life. You can look into them and see a different space that is contained in a viewport frame. This can be used to do some neat stuff like non euclidean geometry.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
