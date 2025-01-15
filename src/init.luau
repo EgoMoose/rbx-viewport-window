@@ -169,6 +169,8 @@ function ViewportWindowClass.RenderManual(
 		return
 	end
 
+	-- please see EmilyBendsSpace post/code on the devforum as it provides the foundation for what's being done here
+	-- https://devforum.roblox.com/t/re-creating-a-portal-effect/337159/78?u=egomoose
 	local xCross = surfaceCFrame.YVector:Cross(cameraCFrame.ZVector)
 	local xVector = xCross:Dot(xCross) > 0 and xCross.Unit or cameraCFrame.XVector
 	local levelCameraCFrame = CFrame.fromMatrix(cameraPosition, xVector, surfaceCFrame.YVector)
