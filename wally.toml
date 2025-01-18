@@ -2,7 +2,7 @@
 name = "egomoose/viewport-window"
 authors = ["EgoMoose", "EmilyBendsSpace"]
 description = "https://github.com/EgoMoose/rbx-viewport-window"
-version = "0.1.1"
+version = "0.1.2"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 license = "MIT"
