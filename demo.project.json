@@ -26,6 +26,12 @@
 				"$path": "demo/assets/materials.rbxm"
 			}
 		},
+		"TextChatService": {
+			"$className": "TextChatService",
+			"$properties": {
+				"ChatVersion": "TextChatService"
+			}
+		},
 		"ReplicatedStorage": {
 			"$className": "ReplicatedStorage",
 			"Packages": {

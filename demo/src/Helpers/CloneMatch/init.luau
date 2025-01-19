@@ -8,7 +8,18 @@ local Trove = require(game.ReplicatedStorage.Packages.Trove)
 local MatchHandlers = require(script.MatchHandlers)
 local Copy = require(script.Copy)
 
-local SUPPORTED = { "BasePart", "Folder", "Model", "Decal", "Texture", "SurfaceAppearance" }
+local SUPPORTED = {
+	"BasePart",
+	"Folder",
+	"Model",
+	"Decal",
+	"Texture",
+	"SurfaceAppearance",
+	"Humanoid",
+	"Shirt",
+	"Pants",
+}
+
 local UNSUPPORTED = { "Terrain", "Status" }
 
 -- Class
