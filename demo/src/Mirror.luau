@@ -55,6 +55,8 @@ function MirrorClass._handleBasePart(self: Mirror, real: Instance, copy: Instanc
 		copy.CFrame = surfaceCF * rotatedOffset
 	end
 
+	copy.Anchored = true
+
 	update()
 	trove:Add(RunService.Heartbeat:Connect(function()
 		update()

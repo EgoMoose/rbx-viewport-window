@@ -10,14 +10,22 @@ local Copy = require(script.Copy)
 
 local SUPPORTED = {
 	"BasePart",
-	"Folder",
-	"Model",
 	"Decal",
-	"Texture",
-	"SurfaceAppearance",
+	"Folder",
 	"Humanoid",
-	"Shirt",
+	"Model",
+	"Motor6D",
 	"Pants",
+	"Shirt",
+	"SurfaceAppearance",
+	"Texture",
+	"Weld",
+	"WrapLayer",
+	"WrapTarget",
+}
+
+local REF_PROPS: { [string]: { string } } = {
+	JointInstance = { "Part0", "Part1" },
 }
 
 local UNSUPPORTED = { "Terrain", "Status" }
@@ -63,9 +71,12 @@ function CloneMatchClass.raw(root: Instance, rootCopy: Instance, handlers: typeo
 		end
 	end
 
+	self:_updateDirectRefs()
+
 	self.trove:Add(root.DescendantAdded:Connect(function(descendant)
 		if self:_isSupported(descendant) then
 			self:_add(descendant)
+			self:_updateDirectRefs()
 		end
 	end))
 
@@ -135,6 +146,23 @@ function CloneMatchClass._track(self: CloneMatch, instance: Instance, copy: Inst
 
 	self.copyMap[instance] = copy
 	self.cleanMap[instance] = trove
+end
+
+function CloneMatchClass._updateDirectRefs(self: CloneMatch)
+	for real, copy in self.copyMap do
+		for class, props in REF_PROPS do
+			if not real:IsA(class) then
+				continue
+			end
+
+			for _, prop in props do
+				if not self.copyMap[real[prop]] then
+					continue
+				end
+				copy[prop] = self.copyMap[real[prop]]
+			end
+		end
+	end
 end
 
 function CloneMatchClass._add(self: CloneMatch, instance: Instance)
