@@ -86,12 +86,6 @@ function CloneMatchClass.raw(root: Instance, rootCopy: Instance, handlers: typeo
 	self.trove:Add(root.DescendantAdded:Connect(function(descendant)
 		if self:_isSupported(descendant) then
 			self:_add(descendant)
-			for className in REF_PROPS do
-				if not descendant:IsA(className) then
-					continue
-				end
-				break
-			end
 		end
 	end))
 
