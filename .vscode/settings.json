@@ -10,7 +10,4 @@
 	},
 	"luau-lsp.require.mode": "relativeToFile",
 	"luau-lsp.sourcemap.rojoProjectFile": "demo.project.json",
-	"luau-lsp.require.directoryAliases": {
-		"@lune/": "~/.lune/.typedefs/0.8.9/"
-	}
 }
