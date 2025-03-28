@@ -10,17 +10,35 @@ local Copy = require(script.Copy)
 
 local SUPPORTED = {
 	"BasePart",
-	"Folder",
-	"Model",
+	"BodyColors",
 	"Decal",
-	"Texture",
-	"SurfaceAppearance",
+	"Folder",
 	"Humanoid",
-	"Shirt",
+	"JointInstance",
+	"Model",
 	"Pants",
+	"Shirt",
+	"SpecialMesh",
+	"SurfaceAppearance",
+	"Texture",
+	"WrapLayer",
+	"WrapTarget",
+}
+
+local REF_PROPS: { [string]: { string } } = {
+	JointInstance = { "Part0", "Part1" },
 }
 
 local UNSUPPORTED = { "Terrain", "Status" }
+
+type RefWaitList = {
+	[Instance]: {
+		{
+			Copy: Instance,
+			Prop: string,
+		}
+	}
+}
 
 -- Class
 
@@ -35,9 +53,10 @@ export type CloneMatch = typeof(setmetatable(
 		handlers: typeof(MatchHandlers),
 		copyMap: { [Instance]: Instance },
 		cleanMap: { [Instance]: Trove.Trove },
+		refWaitList: RefWaitList,
 	},
 	CloneMatchClass
-))
+	))
 
 -- Constructors
 
@@ -49,6 +68,7 @@ function CloneMatchClass.raw(root: Instance, rootCopy: Instance, handlers: typeo
 	self.root = root
 	self.copyMap = {}
 	self.cleanMap = {}
+	self.refWaitList = {}
 
 	self.handlers = table.clone(MatchHandlers)
 	for key, handler in handlers do
@@ -128,6 +148,36 @@ function CloneMatchClass._track(self: CloneMatch, instance: Instance, copy: Inst
 		handler(instance, copy, trove)
 	end
 
+	if self.refWaitList[instance] then
+		for _, instancePropInfo in self.refWaitList[instance] do
+			instancePropInfo.Copy[instancePropInfo.Prop] = copy
+		end
+		self.refWaitList[instance] = nil
+	end
+
+	for className, props in REF_PROPS do
+		if not instance:IsA(className) then
+			continue
+		end
+
+		for _, prop in props do
+			local originalRef = instance[prop]
+			local doppelganger = self.copyMap[originalRef]
+			if doppelganger then
+				copy[prop] = doppelganger
+			else
+				local waitList = self.refWaitList[originalRef]
+
+				if not waitList then
+					waitList = {}
+					self.refWaitList[originalRef] = waitList
+				end
+
+				table.insert(waitList, { Copy = copy, Prop = prop })
+			end
+		end
+	end
+
 	trove:Add(function()
 		copy:Destroy()
 		self.copyMap[instance] = nil
@@ -140,8 +190,9 @@ end
 function CloneMatchClass._add(self: CloneMatch, instance: Instance)
 	local ancestor = self:_findNearestAncestor(instance)
 	local copy = Copy.instance(instance)
-	copy.Parent = self.copyMap[ancestor]
+	
 	self:_track(instance, copy)
+	copy.Parent = self.copyMap[ancestor]
 end
 
 function CloneMatchClass._remove(self: CloneMatch, instance: Instance)

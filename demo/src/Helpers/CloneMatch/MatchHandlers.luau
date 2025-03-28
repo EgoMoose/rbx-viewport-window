@@ -22,6 +22,8 @@ function MatchHandlers.BasePart(real, copy, trove)
 		return
 	end
 
+	copy.Anchored = true
+
 	trove:Add(RunService.Heartbeat:Connect(function()
 		if not real.Anchored then
 			copy.CFrame = real.CFrame
