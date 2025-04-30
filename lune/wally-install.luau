@@ -14,18 +14,20 @@ local function run(program: string, params: { string }, options: Options?)
 	print(`> {program} {table.concat(params, " ")}`)
 	stdio.write(stdio.style("reset"))
 
-	local result = process.spawn(program, params, {
+	local child = process.create(program, params, {
 		stdio = "inherit",
 		shell = true,
 		cwd = if options then options.cwd else nil,
 		env = if options then options.env else nil,
 	})
 
+	local result = child:status()
+
 	if result.code > 0 then
 		process.exit(result.code)
 	end
 
-	local output = if result.ok then result.stdout else result.stderr
+	local output = if result.ok then child.stdout:readToEnd() else child.stderr:readToEnd()
 
 	output = output:gsub("\n$", "")
 
@@ -38,5 +40,9 @@ run("rojo", { "sourcemap", "demo.project.json", "-o", "sourcemap.json" })
 for _, folderName in { "Packages", "DevPackages", "ServerPackages" } do
 	if fs.isDir(folderName) then
 		run("wally-package-types", { "--sourcemap", "sourcemap.json", folderName })
+	end
+
+	if not fs.isDir(folderName) then
+		fs.writeDir(folderName)
 	end
 end
