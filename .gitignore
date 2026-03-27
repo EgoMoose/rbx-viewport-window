@@ -3,5 +3,8 @@
 /Packages
 /placefiles
 
+*.rbxl
+*.rbxl.lock
+
 sourcemap.json
 .ds_store
