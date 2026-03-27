@@ -37,7 +37,7 @@ type RefWaitList = {
 			Copy: Instance,
 			Prop: string,
 		}
-	}
+	},
 }
 
 -- Class
@@ -56,7 +56,7 @@ export type CloneMatch = typeof(setmetatable(
 		refWaitList: RefWaitList,
 	},
 	CloneMatchClass
-	))
+))
 
 -- Constructors
 
@@ -150,7 +150,8 @@ function CloneMatchClass._track(self: CloneMatch, instance: Instance, copy: Inst
 
 	if self.refWaitList[instance] then
 		for _, instancePropInfo in self.refWaitList[instance] do
-			instancePropInfo.Copy[instancePropInfo.Prop] = copy
+			local copyAny = instancePropInfo.Copy :: any
+			copyAny[instancePropInfo.Prop] = copy
 		end
 		self.refWaitList[instance] = nil
 	end
@@ -161,10 +162,12 @@ function CloneMatchClass._track(self: CloneMatch, instance: Instance, copy: Inst
 		end
 
 		for _, prop in props do
-			local originalRef = instance[prop]
+			local instanceAny = instance :: any
+			local originalRef = instanceAny[prop]
 			local doppelganger = self.copyMap[originalRef]
 			if doppelganger then
-				copy[prop] = doppelganger
+				local copyAny = copy :: any
+				copyAny[prop] = doppelganger
 			else
 				local waitList = self.refWaitList[originalRef]
 
@@ -190,7 +193,7 @@ end
 function CloneMatchClass._add(self: CloneMatch, instance: Instance)
 	local ancestor = self:_findNearestAncestor(instance)
 	local copy = Copy.instance(instance)
-	
+
 	self:_track(instance, copy)
 	copy.Parent = self.copyMap[ancestor]
 end
